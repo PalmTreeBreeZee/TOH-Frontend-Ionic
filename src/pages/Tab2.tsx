@@ -1,7 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
-import { IonFabButton, IonIcon } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import React from 'react'
-import { add } from 'ionicons/icons';
 import './Tab2.css';
 import { heroes } from '../services/heroesService';
 import IHero from '../Interfaces/Iheroes.interface';
@@ -21,16 +19,11 @@ return (
     <IonContent fullscreen>
       {data.map(hero => (
         <div key={hero.id}>
-          <IonFabButton>
-            <h2>{hero.name}</h2>
-          </IonFabButton>
+          <IonButton color={"success"} shape='round'>
+            <p>{hero.name}</p>
+          </IonButton>
         </div>
       ))}
-        <IonFabButton>
-          <IonIcon icon={add}></IonIcon>
-        </IonFabButton>
-      <IonContent>
-        </IonContent>
       </IonContent>
     </IonPage>
   );
