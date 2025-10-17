@@ -1,4 +1,4 @@
-import city from "../Interfaces/Icities.interface";
+import city from "../interfaces/Icities.interface";
 
 export const getCity = async (id: number) => {
     try {

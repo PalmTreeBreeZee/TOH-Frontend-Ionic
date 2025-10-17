@@ -1,4 +1,4 @@
-import IHero from "../Interfaces/Iheroes.interface";
+import IHero from "../interfaces/Iheroes.interface";
 
 export const getHeroes = async () => {
     try {

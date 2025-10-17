@@ -1,9 +1,8 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRadioGroup, IonRadio } from '@ionic/react'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRadioGroup, IonRadio } from '@ionic/react'
 import React from 'react'
 import './Tab2.css';
 import { getHeroes } from '../services/heroesService';
-import IHero from '../Interfaces/Iheroes.interface';
-import ICity from '../Interfaces/Icities.interface';
+import IHero from '../interfaces/Iheroes.interface';
 import { getCity } from '../services/citiesService';
 import { useEffect } from 'react';
 
