@@ -1,7 +1,12 @@
-import IHero from "../Interfaces/Iheroes.interface";
+import IHero from "../interfaces/Iheroes.interface";
 
-export const heroes = async () => {
-    const heroesList = await fetch(`http://localhost:5272/api/Heroes`);
+export const getHeroes = async () => {
+    try {
+        const heroesList = await fetch(`http://localhost:5272/api/Heroes`);
 
-    return heroesList.json() as Promise<IHero[]>;
+        return heroesList.json() as Promise<IHero[]>;
+    } catch (error) {
+        console.error("Error fetching heroes:", error);
+        return [] as IHero[];
+    }
 }

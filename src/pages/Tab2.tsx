@@ -1,36 +1,49 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
-import { IonFabButton, IonIcon } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonRadioGroup, IonRadio } from '@ionic/react'
 import React from 'react'
-import { add } from 'ionicons/icons';
 import './Tab2.css';
-import { heroes } from '../services/heroesService';
-import IHero from '../Interfaces/Iheroes.interface';
+import { getHeroes } from '../services/heroesService';
+import IHero from '../interfaces/Iheroes.interface';
+import { getCity } from '../services/citiesService';
+import { useEffect } from 'react';
 
 const Tab2: React.FC = () => {
 
-  const [data, setData] = React.useState<IHero[]>([]);
-  heroes().then(heroes => setData(heroes));
+  const [heroesState, setHeroesState] = React.useState<IHero[]>([]);
+  const [heroData, setHeroData] = React.useState<IHero | undefined>();
+  const [cityState, setCityState] = React.useState<string | undefined>();
 
-return (
+  useEffect(() => {
+    getHeroes().then(heroes => setHeroesState(heroes));
+  }, []);
+
+  const getHeroAndCity = (hero: IHero) => {
+    setHeroData(hero);
+    if (hero.cityId !== null) {
+      getCity(hero.cityId).then(city => setCityState(city.name))
+    } else {
+      setCityState("Not Assigned");
+    }
+  }
+
+  return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tour Of Heroes</IonTitle>
+          {heroData && <IonTitle>{heroData?.name} is from the city: {cityState}</IonTitle>}
         </IonToolbar>
       </IonHeader>
-    <IonContent fullscreen>
-      {data.map(hero => (
-        <div key={hero.id}>
-          <IonFabButton>
-            <h2>{hero.name}</h2>
-          </IonFabButton>
-        </div>
-      ))}
-        <IonFabButton>
-          <IonIcon icon={add}></IonIcon>
-        </IonFabButton>
-      <IonContent>
-        </IonContent>
+      <IonContent fullscreen>
+        <IonRadioGroup>
+          <div className="ailgn-items-center justify-content-center ion-padding">
+            {heroesState.map(hero => (
+              <div key={hero.id} className="text-center">
+                <IonRadio labelPlacement='end' onClick={() => getHeroAndCity(hero)}>
+                  <p>{hero.name}</p>
+                </IonRadio>
+              </div>
+            ))}
+          </div>
+        </IonRadioGroup>
       </IonContent>
     </IonPage>
   );
