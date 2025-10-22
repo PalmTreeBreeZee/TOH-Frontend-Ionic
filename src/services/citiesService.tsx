@@ -1,6 +1,17 @@
 import city from "../interfaces/Icities.interface";
 
-export const getCity = async (id: number) => {
+const getCities = async () => {
+    try {
+        const citiesList = await fetch(`http://localhost:5272/api/Cities`);
+
+        return citiesList.json() as Promise<city[]>;
+    } catch (error) {
+        console.error("Error fetching cities:", error);
+        return [] as city[];
+    }
+}
+
+const getCity = async (id: number) => {
     try {
         const cities = await fetch(`http://localhost:5272/api/Cities/${id}`);
 
@@ -11,3 +22,5 @@ export const getCity = async (id: number) => {
     }
 
 }
+
+export { getCity, getCities };

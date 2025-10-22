@@ -1,6 +1,6 @@
 import IHero from "../interfaces/Iheroes.interface";
 
-export const getHeroes = async () => {
+const getHeroes = async () => {
     try {
         const heroesList = await fetch(`http://localhost:5272/api/Heroes`);
 
@@ -10,3 +10,17 @@ export const getHeroes = async () => {
         return [] as IHero[];
     }
 }
+
+const getHero = async (id: number) => {
+    try {
+        const hero = await fetch(`http://localhost:5272/api/Heroes/${id}`);
+
+        return hero.json() as Promise<IHero>;
+    } catch (error) {
+        console.error("Error fetching hero:", error);
+        return { id: 0, name: "Unknown", cityId: null } as IHero;
+    }
+}
+
+
+export { getHeroes, getHero };
